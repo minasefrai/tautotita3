@@ -1,44 +1,58 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Δελτίο Ταυτότητας</title>
-  <!-- Force the viewport to match device resolution -->
+
+  <!-- Viewport + iOS PWA -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-  <!-- iOS PWA full screen -->
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- try 'default'|'black'|'black-translucent' depending on how you want status bar -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#62A3DA">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: sans-serif;
-    }
+    /* Basic reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    html, body { height: 100%; width: 100%; }
 
-    html, body {
-      height: 100%;
-      width: 100%;
+    /*
+      --vh is set by JS to equal 1% of the *current* innerHeight in px.
+      Use: height: calc(var(--vh) * 100)
+    */
+    :root { --vh: 1vh; }
+
+    /* Body safe-area padding so content doesn't sit under notch / home indicator */
+    body {
       color: white;
-      overflow-x: hidden;
       background-color: black; /* fallback while image loads */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      min-height: 100%;
       position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
     }
 
-    /* Fixed full-screen background */
-    body::before {
-      content: "";
+    /* Fullscreen fixed background DIV (preferred over ::before so we can set explicit px height from JS) */
+    .bg-fixed {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: calc(var(--vh, 1vh) * 100); /* uses the JS-updated --vh */
       background-image: url("background.jpg");
-      background-size: 100% 100%;   /* exact fit of screenshot */
-      background-position: center;
       background-repeat: no-repeat;
-      z-index: -1;
+      background-position: left top;       /* align precisely with viewport origin */
+      background-size: 100% 100%;          /* EXACT 1:1 fit — no cover, no contain */
+      z-index: -9999;
       pointer-events: none;
+      -webkit-transform: translateZ(0);    /* compositing hint for smoother rendering */
+      will-change: transform, height;
     }
 
+    /* page UI (same as your previous layout, but ensure no other backgrounds repeat) */
     .header {
       background-color: #62A3DA;
       padding: 20px;
@@ -48,16 +62,10 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      -webkit-backdrop-filter: none;
     }
-
-    .header div {
-      font-size: 1.5rem;
-    }
-
-    .header .center {
-      font-size: 0.9rem;
-      font-weight: normal;
-    }
+    .header div { font-size: 1.5rem; }
+    .header .center { font-size: 0.9rem; font-weight: normal; }
 
     .section-top {
       background-color: #62A3DA;
@@ -67,103 +75,37 @@
       flex-wrap: wrap;
     }
 
-    .info-block {
-      max-width: 68%;
-    }
+    .info-block { max-width: 68%; }
+    .photo-block { max-width: 30%; display:flex; justify-content:flex-start; position:relative; }
+    .id-photo { width:115px; height:auto; border-radius:8px; margin-top:40px; margin-left:-130px; }
 
-    .photo-block {
-      max-width: 30%;  
-      display: flex;
-      justify-content: flex-start;
-      position: relative;
-    }
+    .row { margin-bottom:18px; }
+    .label { font-size:0.85rem; opacity:0.85; }
+    .value { font-size:1.3rem; margin-bottom:5px; font-weight:normal; }
 
-    .id-photo {
-      width: 115px;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 40px;
-      margin-left: -130px; 
-    }
+    .section-bottom { padding:25px; margin-top:-20px; color:white; background:transparent; }
 
-    .row {
-      margin-bottom: 18px;
-    }
+    .divider { border-bottom:1px solid rgba(255,255,255,0.3); margin:18px 0; }
+    .button-row { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; justify-items:center; margin:10px 0 20px; }
+    .button-col { display:flex; flex-direction:column; align-items:center; font-size:0.75rem; color:white; }
+    .button-col img { width:38px; height:38px; margin-bottom:5px; }
 
-    .label {
-      font-size: 0.85rem;
-      opacity: 0.85;
-    }
+    .note { font-size:0.75rem; text-align:center; opacity:0.8; margin-top:20px; }
+    .doc-code { font-size:0.65rem; text-align:center; margin:12px 0; word-break:break-word; }
+    .uppercase-label { text-transform:uppercase; font-weight:bold; }
+    .uppercase-value { text-transform:uppercase; font-weight:normal; }
 
-    .value {
-      font-size: 1.3rem;
-      margin-bottom: 5px;
-      font-weight: normal;
-    }
-
-    .section-bottom {
-      padding: 25px;
-      margin-top: -20px;
-      color: white;
-    }
-
-    .divider {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      margin: 18px 0;
-    }
-
-    .button-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-      justify-items: center;
-      margin: 10px 0 20px;
-    }
-
-    .button-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.75rem;
-      color: white;
-    }
-
-    .button-col img {
-      width: 38px;
-      height: 38px;
-      margin-bottom: 5px;
-    }
-
-    .note {
-      font-size: 0.75rem;
-      text-align: center;
-      opacity: 0.8;
-      margin-top: 20px;
-    }
-
-    .doc-code {
-      font-size: 0.65rem;
-      font-weight: normal;
-      text-align: center;
-      margin: 12px 0;
-      word-break: break-word;
-    }
-
-    .uppercase-label {
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-
-    .uppercase-value {
-      text-transform: uppercase;
-      font-weight: normal;
-    }
+    /* Prevent rubber-band / overscroll visual moving the background on some iOS versions (optional) */
+    html, body { overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; }
   </style>
 </head>
 <body>
 
+  <!-- Fixed background element -->
+  <div class="bg-fixed" aria-hidden="true"></div>
+
   <div class="header">
-    <div><</div>
+    <div>&lt;</div>
     <div class="center">Δελτίο Ταυτότητας</div>
     <div>︙</div>
   </div>
@@ -186,18 +128,10 @@
 
   <div class="section-bottom">
     <div class="button-row">
-      <div class="button-col">
-        <img src="wallet.jpg" alt="Wallet">
-      </div>
-      <div class="button-col">
-        <img src="copy.jpg" alt="Copy">
-      </div>
-      <div class="button-col">
-        <img src="qr.jpg" alt="QR">
-      </div>
-      <div class="button-col">
-        <img src="scan.jpg" alt="Scan">
-      </div>
+      <div class="button-col"><img src="wallet.jpg" alt="Wallet"></div>
+      <div class="button-col"><img src="copy.jpg" alt="Copy"></div>
+      <div class="button-col"><img src="qr.jpg" alt="QR"></div>
+      <div class="button-col"><img src="scan.jpg" alt="Scan"></div>
     </div>
 
     <div class="row">
@@ -261,5 +195,42 @@
     </p>
   </div>
 
+  <script>
+    /* 
+      Set CSS variable --vh to 1% of the current innerHeight (in px).
+      This avoids address-bar show/hide causing layout jumps on mobile browsers.
+    */
+    (function () {
+      const setVh = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        // also ensure the bg-fixed element exactly matches innerHeight in pixels
+        const bg = document.querySelector('.bg-fixed');
+        if (bg) bg.style.height = `${window.innerHeight}px`;
+      };
+
+      // initial
+      setVh();
+
+      // update on resize/orientationchange
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        // Throttle small resizes
+        resizeTimeout = setTimeout(setVh, 80);
+      }, { passive: true });
+
+      window.addEventListener('orientationchange', () => {
+        // wait a moment for iOS to report correct innerHeight after orientation
+        setTimeout(setVh, 300);
+      }, { passive: true });
+
+      // Optional: when page becomes visible again (e.g. return from home screen)
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) setVh();
+      });
+    })();
+  </script>
 </body>
 </html>
+
