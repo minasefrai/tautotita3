@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Δελτίο Ταυτότητας</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
     * {
       margin: 0;
@@ -14,26 +11,13 @@
       font-family: sans-serif;
     }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow-x: hidden;
-      background: black; /* fallback */
-      position: relative;
-      color: white;
-    }
-
-    /* Σταθερό background */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
+    body {
       background-image: url("background.jpg");
-      background-size: 100% 100%;   /* ακριβές ταίριασμα με το screenshot */
+      background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      z-index: -1;
-      pointer-events: none;
+      background-attachment: fixed;
+      color: white;
     }
 
     .header {
@@ -70,17 +54,17 @@
 
     .photo-block {
       max-width: 30%;  
-      display: flex;
-      justify-content: flex-start;
-      position: relative;
+	  display: flex;
+	  justify-content: flex-start;
+	  position: relative;
     }
 
     .id-photo {
-      width: 115px;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 40px;
-      margin-left: -130px; 
+	width: 115px;
+	height: auto;
+	border-radius: 8px;
+	margin-top: 40px;
+	margin-left: -130px; 
     }
 
     .row {
@@ -97,12 +81,16 @@
       margin-bottom: 5px;
       font-weight: normal;
     }
-
-    .section-bottom {
-      padding: 25px;
-      margin-top: -20px;
+	.section-bottom {
+	background-image: url("background.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: white;
-    }
+	padding: 25px;
+	margin-top: -20px;
+	}
 
     .divider {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -126,7 +114,7 @@
     }
 
     .button-col img {
-      width: 28px;
+      width: 12-px;
       height: 38px;
       margin-bottom: 5px;
     }
