@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Δελτίο Ταυτότητας</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <style>
     * {
       margin: 0;
@@ -11,13 +15,26 @@
       font-family: sans-serif;
     }
 
-    body {
-      background-image: url("background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      background: black; /* fallback */
+      position: relative;
       color: white;
+    }
+
+    /* 👇 This keeps the screenshot fixed behind everything */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("background.jpg");
+      background-size: 100% 100%; /* exact fit = no zoom */
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .header {
@@ -53,18 +70,18 @@
     }
 
     .photo-block {
-      max-width: 30%;  
-	  display: flex;
-	  justify-content: flex-start;
-	  position: relative;
+      max-width: 30%;
+      display: flex;
+      justify-content: flex-start;
+      position: relative;
     }
 
     .id-photo {
-	width: 115px;
-	height: auto;
-	border-radius: 8px;
-	margin-top: 40px;
-	margin-left: -130px; 
+      width: 115px;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 40px;
+      margin-left: -130px; 
     }
 
     .row {
@@ -81,16 +98,12 @@
       margin-bottom: 5px;
       font-weight: normal;
     }
-	.section-bottom {
-	background-image: url("background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+
+    .section-bottom {
+      padding: 25px;
+      margin-top: -20px;
       color: white;
-	padding: 25px;
-	margin-top: -20px;
-	}
+    }
 
     .divider {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -114,7 +127,7 @@
     }
 
     .button-col img {
-      width: 12-px;
+      width: 38px;
       height: 38px;
       margin-bottom: 5px;
     }
