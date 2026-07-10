@@ -105,26 +105,27 @@
       margin: 18px 0;
     }
 
+    /* Updated to 2x2 grid */
     .button-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px; /* Adds space between the rows and columns */
       justify-items: center;
-      margin: 10px 0 20px;
+      margin: 15px 0 25px;
     }
 
     .button-col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.75rem;
-      color: white;
+      width: 100%;
     }
 
     .button-col img {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 5px;
+      width: 100%;
+      max-width: 150px; /* Keeps the rectangular buttons a good size */
+      height: auto;
+      border-radius: 8px;
     }
 
     .note {
@@ -178,6 +179,8 @@
   </div>
 
   <div class="section-bottom">
+    
+    <!-- Buttons now 2x2 -->
     <div class="button-row">
       <div class="button-col"><img src="wallet.jpg" alt="Wallet"></div>
       <div class="button-col"><img src="copy.jpg" alt="Copy"></div>
