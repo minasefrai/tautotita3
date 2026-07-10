@@ -12,24 +12,12 @@
     }
 
     body {
-      color: white;
-      min-height: 100vh;
-      position: relative;
-    }
-
-    /* Fixed background fix for iOS */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
       background-image: url("background.jpg");
-      background-size: 100% 100%;
+      background-size: 100% 100%
       background-position: center;
       background-repeat: no-repeat;
-      z-index: -1;
+      background-attachment: fixed;
+      color: white;
     }
 
     .header {
@@ -66,17 +54,17 @@
 
     .photo-block {
       max-width: 30%;  
-      display: flex;
-      justify-content: flex-start;
-      position: relative;
+	  display: flex;
+	  justify-content: flex-start;
+	  position: relative;
     }
 
     .id-photo {
-      width: 115px;
-      height: auto;
-      border-radius: 8px;
-      margin-top: 40px;
-      margin-left: -130px; 
+	width: 115px;
+	height: auto;
+	border-radius: 8px;
+	margin-top: 40px;
+	margin-left: -130px; 
     }
 
     .row {
@@ -93,39 +81,42 @@
       margin-bottom: 5px;
       font-weight: normal;
     }
-
-    .section-bottom {
-      padding: 25px;
-      margin-top: -20px;
+	.section-bottom {
+	background-image: url("background.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       color: white;
-    }
+	padding: 25px;
+	margin-top: -20px;
+	}
 
     .divider {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       margin: 18px 0;
     }
 
-    /* Updated to 2x2 grid */
     .button-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px; /* Adds space between the rows and columns */
+      gap: 2px;
       justify-items: center;
-      margin: 15px 0 25px;
+      margin: 10px 0 20px;
     }
 
     .button-col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
+      font-size: 0.75rem;
+      color: white;
     }
 
     .button-col img {
-      width: 100%;
-      max-width: 150px; /* Keeps the rectangular buttons a good size */
-      height: auto;
-      border-radius: 8px;
+      width: 12-px;
+      height: 38px;
+      margin-bottom: 5px;
     }
 
     .note {
@@ -157,9 +148,9 @@
 <body>
 
   <div class="header">
-    <div>&lt;</div>
+    <div><</div>
     <div class="center">Δελτίο Ταυτότητας</div>
-    <div>&#65045;</div>
+    <div>︙</div>
   </div>
 
   <div class="section-top">
@@ -179,13 +170,20 @@
   </div>
 
   <div class="section-bottom">
-    
-    <!-- Buttons now 2x2 -->
+
     <div class="button-row">
-      <div class="button-col"><img src="wallet.jpg" alt="Wallet"></div>
-      <div class="button-col"><img src="copy.jpg" alt="Copy"></div>
-      <div class="button-col"><img src="qr.jpg" alt="QR"></div>
-      <div class="button-col"><img src="scan.jpg" alt="Scan"></div>
+      <div class="button-col">
+        <img src="wallet.jpg" alt="Wallet">
+      </div>
+      <div class="button-col">
+        <img src="copy.jpg" alt="Copy">
+      </div>
+      <div class="button-col">
+        <img src="qr.jpg" alt="QR">
+      </div>
+      <div class="button-col">
+        <img src="scan.jpg" alt="Scan">
+      </div>
     </div>
 
     <div class="row">
@@ -251,3 +249,4 @@
 
 </body>
 </html>
+
