@@ -13,11 +13,29 @@
 
     body {
       background-image: url("background.jpg");
-      background-size: 100% 100%
+      background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
+      min-height: 100vh;
       color: white;
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      body {
+        background: none;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("background.jpg");
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+      }
     }
 
     .header {
@@ -82,11 +100,7 @@
       font-weight: normal;
     }
 	.section-bottom {
-	background-image: url("background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+	background: transparent;
       color: white;
 	padding: 25px;
 	margin-top: -20px;
@@ -249,4 +263,3 @@
 
 </body>
 </html>
-
