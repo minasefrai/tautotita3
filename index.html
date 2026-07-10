@@ -11,10 +11,16 @@
       font-family: sans-serif;
     }
 
+    /* Set HTML background to dark blue to fix the iOS bottom safe area/overscroll white bar */
+    html {
+      background-color: #0a2f5c; 
+    }
+
     body {
       color: white;
       min-height: 100vh;
       position: relative;
+      background-color: #0a2f5c; /* Matches the html background */
     }
 
     /* Fixed background fix for iOS */
@@ -105,11 +111,10 @@
       margin: 18px 0;
     }
 
-    /* Updated to 2x2 grid */
     .button-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px; /* Adds space between the rows and columns */
+      gap: 12px;
       justify-items: center;
       margin: 15px 0 25px;
     }
@@ -123,7 +128,7 @@
 
     .button-col img {
       width: 100%;
-      max-width: 150px; /* Keeps the rectangular buttons a good size */
+      max-width: 150px;
       height: auto;
       border-radius: 8px;
     }
@@ -133,6 +138,7 @@
       text-align: center;
       opacity: 0.8;
       margin-top: 20px;
+      padding-bottom: 20px; /* Gives a little breathing room at the very bottom */
     }
 
     .doc-code {
@@ -180,7 +186,6 @@
 
   <div class="section-bottom">
     
-    <!-- Buttons now 2x2 -->
     <div class="button-row">
       <div class="button-col"><img src="wallet.jpg" alt="Wallet"></div>
       <div class="button-col"><img src="copy.jpg" alt="Copy"></div>
