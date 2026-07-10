@@ -12,12 +12,24 @@
     }
 
     body {
+      color: white;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Fixed background fix for iOS */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background-image: url("background.jpg");
-      background-size: 100% 100%
+      background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: white;
+      z-index: -1;
     }
 
     .header {
@@ -54,17 +66,17 @@
 
     .photo-block {
       max-width: 30%;  
-	  display: flex;
-	  justify-content: flex-start;
-	  position: relative;
+      display: flex;
+      justify-content: flex-start;
+      position: relative;
     }
 
     .id-photo {
-	width: 115px;
-	height: auto;
-	border-radius: 8px;
-	margin-top: 40px;
-	margin-left: -130px; 
+      width: 115px;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 40px;
+      margin-left: -130px; 
     }
 
     .row {
@@ -81,16 +93,12 @@
       margin-bottom: 5px;
       font-weight: normal;
     }
-	.section-bottom {
-	background-image: url("background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+
+    .section-bottom {
+      padding: 25px;
+      margin-top: -20px;
       color: white;
-	padding: 25px;
-	margin-top: -20px;
-	}
+    }
 
     .divider {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -99,7 +107,7 @@
 
     .button-row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px;
       justify-items: center;
       margin: 10px 0 20px;
@@ -114,8 +122,8 @@
     }
 
     .button-col img {
-      width: 12-px;
-      height: 38px;
+      width: 48px;
+      height: 48px;
       margin-bottom: 5px;
     }
 
@@ -148,9 +156,9 @@
 <body>
 
   <div class="header">
-    <div><</div>
+    <div>&lt;</div>
     <div class="center">Δελτίο Ταυτότητας</div>
-    <div>︙</div>
+    <div>&#65045;</div>
   </div>
 
   <div class="section-top">
@@ -170,20 +178,11 @@
   </div>
 
   <div class="section-bottom">
-
     <div class="button-row">
-      <div class="button-col">
-        <img src="wallet.jpg" alt="Wallet">
-      </div>
-      <div class="button-col">
-        <img src="copy.jpg" alt="Copy">
-      </div>
-      <div class="button-col">
-        <img src="qr.jpg" alt="QR">
-      </div>
-      <div class="button-col">
-        <img src="scan.jpg" alt="Scan">
-      </div>
+      <div class="button-col"><img src="wallet.jpg" alt="Wallet"></div>
+      <div class="button-col"><img src="copy.jpg" alt="Copy"></div>
+      <div class="button-col"><img src="qr.jpg" alt="QR"></div>
+      <div class="button-col"><img src="scan.jpg" alt="Scan"></div>
     </div>
 
     <div class="row">
@@ -249,5 +248,3 @@
 
 </body>
 </html>
-
-
